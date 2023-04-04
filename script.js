@@ -3,10 +3,19 @@ const questionEl = document.getElementById('question');
 const answerEl = document.getElementById('answer');
 const resultEl = document.getElementById('result');
 const timerEl = document.getElementById('timer');
+const pointEl = document.getElementById('point');
 
 let question = '';
 let answerQuestion = '';
 let remainingTime = 30;
+let point = localStorage.getItem('point') || 0;
+pointEl.innerText = point;
+
+function addPoint() {
+    point++;
+    localStorage.setItem('point', point);
+    pointEl.innerText = point;
+}
 
 function refresh() {
     window.location.reload();
@@ -39,6 +48,7 @@ function checkAnswer() {
 
     if (answer === answerQuestion) {
         resultEl.innerHTML = '<span class="text-green-600 font-semibold">Benar!</span>';
+        addPoint();
         refresh();
     } else {
         resultEl.innerHTML = '<span class="text-red-600 font-semibold">Salah!</span>';
