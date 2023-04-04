@@ -7,7 +7,7 @@ const pointEl = document.getElementById('point');
 
 let question = '';
 let answerQuestion = '';
-let remainingTime = 30;
+let remainingTime = 45;
 let point = getCookie('point') || 0;
 pointEl.innerText = point;
 
@@ -42,16 +42,48 @@ fetch(endpoint)
 function checkAnswer() {
     const answer = answerEl.value.toLowerCase();
     if (answer === '') {
-        alert('Jawaban tidak boleh kosong');
+        Swal.fire({
+            title: 'Yahh!',
+            text: 'Jawaban kamu belum diisi!',
+            icon: 'error',
+            confirmButtonText: 'Oke'
+        })
         return;
     }
 
     if (answer === answerQuestion) {
-        resultEl.innerHTML = '<span class="text-green-600 font-semibold">Benar!</span>';
         addPoint();
-        refresh();
+        //create pop up here and refresh page
+        Swal.fire({
+            title: 'Selamat!',
+            text: 'Jawaban kamu benar!',
+            icon: 'success',
+            confirmButtonText: 'Lanjut'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                refresh();
+            }
+        })
+
+
     } else {
-        resultEl.innerHTML = '<span class="text-red-600 font-semibold">Salah!</span>';
+        //create pop up here with button skip dan jawab ulang
+        Swal.fire({
+            title: 'Yahh!',
+            text: 'Jawaban kamu salah!',
+            icon: 'error',
+            confirmButtonText: 'Jawab Ulang',
+            showCancelButton: true,
+            cancelButtonText: 'Skip',
+            cancelButtonColor: '#d33',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                return;
+            } else if (result.isDismissed) {
+                skipQuestion();
+            }
+        })
+
     }
 }
 
@@ -78,9 +110,21 @@ function deleteCookie(name) {
 }
 
 function resetScore() {
-    deleteCookie('point');
-    point = 0;
-    pointEl.innerText = point;
+    Swal.fire({
+        title: 'Apakah kamu yakin?',
+        text: 'Skor kamu akan direset!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Reset',
+        cancelButtonText: 'Batal',
+        cancelButtonColor: '#d33',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            deleteCookie('point');
+            point = 0;
+            pointEl.innerText = point;
+        }
+    })
 }
 
 function skipQuestion() {
