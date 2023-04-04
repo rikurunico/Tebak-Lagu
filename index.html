@@ -3,11 +3,46 @@
   <head>
     <title>Tebak-tebakan Lirik</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <style>
+      body {
+        background-color: #7f7fd5;
+        background-image: linear-gradient(to right, #7f7fd5, #86a8e7, #91eae4);
+        font-family: "Montserrat", sans-serif;
+      }
+      h1 {
+        font-size: 4rem;
+        font-weight: bold;
+        color: #1e3a8a;
+        text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+      }
+      .btn-check {
+        animation: pulse 1s infinite;
+      }
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+    </style>
   </head>
-  <body class="bg-gray-200">
+  <body>
     <div class="container mx-auto py-8 max-w-lg">
       <div class="bg-white p-8 rounded-md shadow-md">
-        <h1 class="text-4xl font-bold mb-4">Tebak-tebakan Lirik</h1>
+        <h1
+          class="text-center mb-4 animate__animated animate__fadeInDown text-4xl font-bold"
+        >
+          Tebak-tebakan Lirik
+        </h1>
         <div id="question" class="mb-4"></div>
         <input
           type="text"
@@ -16,10 +51,22 @@
           placeholder="Jawaban"
         />
         <button
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded btn-check animate__animated animate__pulse"
           onclick="checkAnswer()"
         >
           Cek Jawaban
+        </button>
+        <button
+          class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4"
+          onclick="resetScore()"
+        >
+          Reset Skor
+        </button>
+        <button
+          class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mt-4"
+          onclick="skipQuestion()"
+        >
+          Skip
         </button>
         <div class="mt-4" id="result"></div>
       </div>

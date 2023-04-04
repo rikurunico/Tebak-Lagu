@@ -71,3 +71,18 @@ function setCookie(name, value, days) {
     const expires = `expires=${date.toUTCString()}`;
     document.cookie = `${name}=${value};${expires};path=/`;
 }
+
+// fungsi untuk menghapus nilai cookie
+function deleteCookie(name) {
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/`;
+}
+
+function resetScore() {
+    deleteCookie('point');
+    point = 0;
+    pointEl.innerText = point;
+}
+
+function skipQuestion() {
+    refresh();
+}
