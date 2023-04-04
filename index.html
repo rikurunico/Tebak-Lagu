@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Tebak-tebakan Lirik</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       rel="stylesheet"
@@ -31,6 +32,37 @@
         }
         100% {
           transform: scale(1);
+        }
+      }
+
+      /* Media Query */
+      @media screen and (max-width: 768px) {
+        h1 {
+          font-size: 3rem;
+        }
+        .container {
+          max-width: 100%;
+        }
+      }
+
+      @media screen and (max-width: 640px) {
+        h1 {
+          font-size: 2.5rem;
+        }
+      }
+
+      @media screen and (max-width: 480px) {
+        h1 {
+          font-size: 2rem;
+        }
+        .bg-white {
+          padding: 2rem;
+        }
+        .container {
+          padding: 1rem;
+        }
+        .flex {
+          flex-direction: column;
         }
       }
     </style>
