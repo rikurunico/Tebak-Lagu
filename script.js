@@ -8,12 +8,12 @@ const pointEl = document.getElementById('point');
 let question = '';
 let answerQuestion = '';
 let remainingTime = 30;
-let point = localStorage.getItem('point') || 0;
+let point = getCookie('point') || 0;
 pointEl.innerText = point;
 
 function addPoint() {
     point++;
-    localStorage.setItem('point', point);
+    setCookie('point', point, 7); // set cookie dengan expired time 7 hari
     pointEl.innerText = point;
 }
 
@@ -53,4 +53,21 @@ function checkAnswer() {
     } else {
         resultEl.innerHTML = '<span class="text-red-600 font-semibold">Salah!</span>';
     }
+}
+
+// fungsi untuk mengambil nilai cookie
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+        return parts.pop().split(';').shift();
+    }
+}
+
+// fungsi untuk mengatur nilai cookie
+function setCookie(name, value, days) {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    const expires = `expires=${date.toUTCString()}`;
+    document.cookie = `${name}=${value};${expires};path=/`;
 }
