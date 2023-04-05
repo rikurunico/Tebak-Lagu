@@ -29,15 +29,36 @@ function updateTimer() {
     }
 }
 
-fetch(endpoint)
-    .then(response => response.json())
-    .then(data => {
+const xhr = new XMLHttpRequest();
+
+xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+        const data = JSON.parse(xhr.responseText);
         question = data.result.question;
         answerQuestion = data.result.answer.toLowerCase();
         questionEl.innerText = question;
+        updateTimer(); // tambahkan pembaruan timer saat pertanyaan dimuat
         setInterval(updateTimer, 1000); // set interval untuk update waktu setiap detik
+        document.body.style.visibility = 'visible'; // tampilkan konten setelah halaman siap
+    }
+};
+
+xhr.open('GET', endpoint);
+xhr.send();
+
+xhr.onerror = function () {
+    Swal.fire({
+        title: 'Yahh!',
+        text: 'Terjadi kesalahan saat mengambil data!',
+        icon: 'error',
+        confirmButtonText: 'Oke'
     })
-    .catch(error => console.error(error));
+};
+
+xhr.open('GET', endpoint, true);
+xhr.send();
+document.body.style.visibility = 'hidden'; // sembunyikan konten sampai halaman siap
+
 
 function checkAnswer() {
     const answer = answerEl.value.toLowerCase();
