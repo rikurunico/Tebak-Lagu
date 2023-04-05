@@ -43,8 +43,6 @@ xhr.onreadystatechange = function () {
     }
 };
 
-xhr.open('GET', endpoint);
-xhr.send();
 
 xhr.onerror = function () {
     Swal.fire({
