@@ -77,13 +77,13 @@ function checkAnswer() {
             title: 'Selamat!',
             text: 'Jawaban kamu benar!',
             icon: 'success',
-            confirmButtonText: 'Lanjut'
+            confirmButtonText: 'Lanjut',
+            allowOutsideClick: false,
         }).then((result) => {
             if (result.isConfirmed) {
                 refresh();
             }
         })
-
 
     } else {
         //create pop up here with button skip dan jawab ulang
@@ -95,6 +95,7 @@ function checkAnswer() {
             showCancelButton: true,
             cancelButtonText: 'Skip',
             cancelButtonColor: '#d33',
+            allowOutsideClick: false // set opsi allowOutsideClick menjadi false
         }).then((result) => {
             if (result.isConfirmed) {
                 return;
@@ -102,7 +103,6 @@ function checkAnswer() {
                 skipQuestion();
             }
         })
-
     }
 }
 
